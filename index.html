@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TextShift — Free Online Case Converter (camelCase, snake_case, Slugs & More)</title>
+<meta name="description" content="TextShift is a free online case converter that transforms text into 15 formats: camelCase, PascalCase, snake_case, kebab-case, CONSTANT_CASE, Title Case, alternating case, URL slugs and more — live, unlimited, no signup.">
+<meta name="keywords" content="case converter, camelCase, snake_case, kebab-case, PascalCase, alternating case, slug generator, text case converter">
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Special+Elite&display=swap" rel="stylesheet">
+<style>
+  :root { --paper: #F5F0E6; --ink: #141414; --sheet: #FFFDF7; --ribbon: #B91C1C; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--paper); color: var(--ink); font-family: 'Courier Prime', 'Courier New', monospace; }
+  .font-type { font-family: 'Special Elite', 'Courier Prime', monospace; }
+  .no-print .ad-slot { min-height: 0; }
+  /* typewriter keys */
+  .tkey {
+    background: #1b1b1b; color: #F5F0E6; border-radius: 9999px;
+    box-shadow: 0 3px 0 #000, inset 0 1px 0 rgba(255,255,255,.25);
+    transition: transform .06s ease, box-shadow .06s ease, background .15s;
+    user-select: none;
+  }
+  .tkey:active, .tkey.pressed { transform: translateY(2px); box-shadow: 0 1px 0 #000, inset 0 1px 0 rgba(255,255,255,.25); }
+  .tkey[aria-pressed="true"] { background: var(--ribbon); box-shadow: 0 3px 0 #5f1010, inset 0 1px 0 rgba(255,255,255,.25); }
+  .tkey.wide { border-radius: 10px; }
+  /* paper sheet */
+  .sheet {
+    background: var(--sheet);
+    background-image: repeating-linear-gradient(transparent, transparent 27px, rgba(20,20,20,.07) 28px);
+    border: 1px solid #d8d0bd;
+    box-shadow: 0 10px 24px rgba(0,0,0,.12), 0 2px 6px rgba(0,0,0,.08);
+  }
+  .stamp {
+    border: 3px double var(--ribbon); color: var(--ribbon);
+    transform: rotate(-4deg); display: inline-block;
+  }
+  .carriage { background: #1b1b1b; }
+  .knob {
+    width: 26px; height: 26px; border-radius: 9999px; background: #333;
+    box-shadow: inset 0 2px 4px rgba(255,255,255,.25), 0 2px 3px rgba(0,0,0,.5);
+    position: relative;
+  }
+  .knob::after { content:''; position:absolute; left:11px; top:3px; width:4px; height:9px; background:#F5F0E6; border-radius:2px; }
+  .case-card { background: var(--sheet); border: 2px solid #141414; box-shadow: 4px 4px 0 #141414; transition: transform .12s ease; }
+  .case-card:hover { transform: translate(-1px,-1px); }
+  .case-card:hover { box-shadow: 5px 5px 0 #141414; }
+  .typed-caret::after { content:'█'; animation: blink 1s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+  .ribbon-strip { background: repeating-linear-gradient(-45deg, #141414 0 12px, #B91C1C 12px 24px); }
+  #toast { transition: opacity .25s ease, transform .25s ease; }
+  textarea:focus, input:focus, select:focus { outline: 2px dashed #141414; outline-offset: 2px; }
+  ::selection { background: #141414; color: #F5F0E6; }
+</style>
+</head>
+<body id="top" class="min-h-screen flex flex-col">
+
+<!-- HEADER -->
+<header class="sticky top-0 z-40 bg-[#141414] text-[#F5F0E6] border-b-4 border-[#B91C1C]">
+  <div class="mx-auto max-w-6xl px-4 sm:px-6 h-16 flex items-center justify-between">
+    <a href="#top" class="font-type text-2xl tracking-widest font-bold" aria-label="TextShift home">TEXTSHIFT<span class="typed-caret text-[#B91C1C]"></span></a>
+    <nav class="flex items-center gap-4 sm:gap-6 text-sm sm:text-base">
+      <a href="#top" class="hover:underline underline-offset-4 decoration-[#B91C1C] decoration-2">Home</a>
+      <a href="https://fixoraa.tech" class="hover:underline underline-offset-4 decoration-[#B91C1C] decoration-2">More Tools</a>
+    </nav>
+  </div>
+</header>
+
+<!-- TOP AD -->
+<div class="no-print mx-auto max-w-6xl px-4 sm:px-6 pt-4" role="complementary" aria-label="Advertisement">
+  <div class="mx-auto text-center" style="max-width:728px">
+    <span class="block text-[10px] tracking-[0.18em] uppercase text-slate-400 mb-1.5">Advertisement</span>
+    <div class="flex justify-center overflow-hidden">
+      <div class="origin-top scale-[0.44] sm:scale-100 shrink-0">
+        <script>
+          atOptions = { 'key' : '4e68ac77881c17fe128a46565d9a4e8c', 'format' : 'iframe', 'height' : 90, 'width' : 728, 'params' : {} };
+        </script>
+        <script src="https://www.highrevenueformat.com/4e68ac77881c17fe128a46565d9a4e8c/invoke.js"></script>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main class="flex-1 w-full">
+  <!-- HERO -->
+  <section class="mx-auto max-w-6xl px-4 sm:px-6 pt-8 pb-4 text-center">
+    <p class="text-xs tracking-[0.3em] uppercase mb-3">Est. for writers &amp; developers</p>
+    <h1 class="font-type text-4xl sm:text-6xl font-bold leading-tight">Case Converter</h1>
+    <p class="mt-3 text-base sm:text-lg max-w-2xl mx-auto">Type once — TextShift hammers out <strong>15 case formats</strong> at the same time: camelCase, PascalCase, snake_case, kebab-case, Title Case, aLtErNaTiNg case, URL slugs and more.</p>
+    <div class="mt-4 flex items-center justify-center gap-3 flex-wrap">
+      <span class="stamp font-type px-4 py-1 text-lg uppercase">Unlimited Free Usage</span>
+      <span class="text-sm">No signup &middot; No paywall &middot; No watermark</span>
+    </div>
+  </section>
+
+  <!-- TOOL -->
+  <section id="tool" class="mx-auto max-w-6xl px-4 sm:px-6 pb-10" aria-label="Case converter tool">
+    <!-- typewriter carriage -->
+    <div class="carriage rounded-t-xl px-4 py-3 flex items-center justify-between text-[#F5F0E6]">
+      <div class="knob" aria-hidden="true"></div>
+      <p class="font-type text-sm sm:text-base tracking-[0.25em] uppercase">TextShift &middot; Model 15-Case</p>
+      <div class="knob" aria-hidden="true"></div>
+    </div>
+
+    <!-- paper -->
+    <div class="sheet rounded-b-xl p-4 sm:p-8">
+      <label for="inputText" class="block text-sm uppercase tracking-[0.2em] mb-2 font-bold">Feed the paper &mdash; type or paste your text</label>
+      <textarea id="inputText" rows="5" placeholder="Type something here… e.g. hello world, helloWorld, JSONParserFactory"
+        class="w-full bg-transparent text-lg leading-8 resize-y min-h-[10rem] placeholder:text-[#8a8474]"></textarea>
+
+      <!-- shift keys: cleanup toggles -->
+      <div class="mt-4 flex flex-wrap items-center gap-3">
+        <button id="keyWhitespace" class="tkey wide px-5 py-2.5 text-sm font-bold" aria-pressed="true" title="Collapse multiple spaces, tabs and newlines into single spaces">⇧ Strip extra whitespace</button>
+        <button id="keyEmoji" class="tkey wide px-5 py-2.5 text-sm font-bold" aria-pressed="false" title="Remove all emoji characters from the text">⇧ Remove emojis</button>
+        <label class="flex items-center gap-2 text-sm font-bold border-2 border-[#141414] rounded-lg px-4 py-2 bg-[#F5F0E6]">
+          Slug max length
+          <input id="slugLen" type="number" min="0" max="200" value="60" class="w-16 bg-transparent text-center font-bold" title="Maximum characters for the URL slug (0 = no limit)">
+        </label>
+      </div>
+
+      <!-- detected case + stats -->
+      <div class="mt-4 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm border-y-2 border-dashed border-[#141414] py-2">
+        <p>Detected input case: <strong id="detectedCase" class="bg-[#141414] text-[#F5F0E6] px-2 py-0.5">&mdash;</strong></p>
+        <p>Words: <strong id="statWords">0</strong></p>
+        <p>Characters: <strong id="statChars">0</strong></p>
+        <p>Sentences: <strong id="statSentences">0</strong></p>
+        <p class="ml-auto hidden sm:block text-[#8a8474]">converts live as you type</p>
+      </div>
+
+      <!-- live all-cases grid -->
+      <h2 class="font-type text-2xl mt-6 mb-4">Every format, struck at once</h2>
+      <div id="caseGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+
+      <!-- action keys -->
+      <div class="mt-6 flex flex-wrap gap-3 justify-center">
+        <button id="btnCopyAll" class="tkey wide px-8 py-3 font-bold text-base">⎘ Copy all formats</button>
+        <button id="btnDownload" class="tkey wide px-8 py-3 font-bold text-base">⤓ Download .txt</button>
+        <button id="btnClear" class="tkey wide px-8 py-3 font-bold text-base">✕ Clear paper</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- BOTTOM AD -->
+<div class="no-print mx-auto max-w-6xl px-4 sm:px-6 pb-4" role="complementary" aria-label="Advertisement">
+  <div class="mx-auto text-center" style="max-width:728px">
+    <span class="block text-[10px] tracking-[0.18em] uppercase text-slate-400 mb-1.5">Advertisement</span>
+    <div class="flex justify-center overflow-hidden">
+      <script async src="https://js.wpadmngr.com/static/adManager.js" data-admpid="464498"></script>
+    </div>
+  </div>
+</div>
+
+<div class="ribbon-strip h-3 w-full" aria-hidden="true"></div>
+<!-- SEO ARTICLE -->
+<section id="seo-article" class="mx-auto max-w-4xl px-4 sm:px-6 py-10">
+  <article class="prose-like">
+    <h2 class="font-type text-3xl sm:text-4xl mb-6">The Complete Guide to Text Case Conversion: From camelCase to URL Slugs</h2>
+
+    <h3 class="font-type text-2xl mt-8 mb-3">What is a case converter?</h3>
+    <p class="mb-4 leading-8">A case converter is a text tool that takes any piece of writing and rewrites it in a different capitalization style. The simplest conversions are the ones you already know: turning everything into UPPERCASE, everything into lowercase, or giving text a proper Title Case. But modern writing — especially writing that lives next to code — needs far more formats than that. Programmers juggle camelCase variable names, snake_case database columns, kebab-case CSS classes, PascalCase class names and CONSTANT_CASE environment variables, often translating between them dozens of times a day. A good case converter removes that friction: you type once and every format is produced instantly, ready to copy. TextShift was built on that idea. Instead of making you pick one format, convert, copy, go back and pick another, it strikes all fifteen formats at the same time, the way a typewriter strikes every key you feed it. The result is a small but genuine productivity gain that compounds every single day for developers, writers, students and content creators.</p>
+
+    <h3 class="font-type text-2xl mt-8 mb-3">Why case conventions matter in programming</h3>
+    <p class="mb-4 leading-8">Every programming language and community has settled on its own naming conventions, and using the wrong one makes code look foreign to other developers. JavaScript and Java use camelCase for variables and functions, so you write <code>userName</code> and <code>fetchUserData</code>. Python, Ruby and SQL lean on snake_case, giving you <code>user_name</code> and <code>created_at</code>. CSS classes and HTML attributes conventionally use kebab-case like <code>nav-bar</code> and <code>data-user-id</code>. Class and type names in Java, C# and TypeScript use PascalCase such as <code>UserProfile</code> or <code>HttpClient</code>. Constants and environment variables are written in CONSTANT_CASE, also called SCREAMING_SNAKE_CASE, like <code>MAX_RETRY_COUNT</code> or <code>DATABASE_URL</code>. These are not cosmetic preferences. Linters enforce them, code reviews flag them, and APIs break when a JSON key arrives as <code>userId</code> while the backend expects <code>user_id</code>. That last mismatch is one of the most common integration bugs in web development, and it is exactly why a converter that understands word boundaries — one that can split <code>JSONParserFactory</code> into JSON, Parser and Factory and rebuild it as <code>json_parser_factory</code> — is worth more than a toy that only capitalizes words.</p>
+
+    <h3 class="font-type text-2xl mt-8 mb-3">The developer cases, explained</h3>
+    <p class="mb-4 leading-8">Let us walk through each programming case so you always pick the right one. <strong>camelCase</strong> starts with a lowercase word and capitalizes every following word with no separators: <code>helloWorld</code>. It is the standard for variables, functions and JSON keys in JavaScript, Java and Go. <strong>PascalCase</strong>, also called UpperCamelCase, capitalizes every word including the first: <code>HelloWorld</code>. It signals types, classes, components and constructors — when you see <code>UserCard</code> in React code you immediately know it is a component, not a plain variable. <strong>snake_case</strong> lowercases everything and joins words with underscores: <code>hello_world</code>. It dominates Python, Ruby, Rust, PHP and database schemas, where underscores survive safely in identifiers that hyphens would break. <strong>kebab-case</strong> does the same with hyphens: <code>hello-world</code>. Hyphens are illegal in most programming identifiers, which is why kebab-case lives in CSS, HTML, URLs and command-line flags instead. <strong>CONSTANT_CASE</strong> is snake_case shouted in capitals: <code>HELLO_WORLD</code>. It marks values that must never change at runtime. Two bonus formats round out the set: <strong>dot.case</strong> (<code>hello.world</code>) is used for Java package names, configuration keys and some namespaced identifiers, while <strong>Train-Case</strong> (<code>Hello-World</code>) appears in HTTP headers and titles that need hyphen separation with capitalization intact.</p>
+
+    <h3 class="font-type text-2xl mt-8 mb-3">Text cases for writers and everyday use</h3>
+    <p class="mb-4 leading-8">Not every conversion is about code. <strong>Title Case</strong> capitalizes the first letter of every word and is the standard for headlines, book titles, article headings and presentation slides. <strong>Sentence case</strong> is subtler: it lowercases everything and then capitalizes only the first letter of each sentence, which is how body text in most languages is properly written. It is the fastest way to fix text that was accidentally typed in ALL CAPS, a common mishap when the caps-lock key gets bumped. <strong>aLtErNaTiNg case</strong>, sometimes called mocking SpongeBob case after the meme, alternates lowercase and uppercase letters for a playful, sarcastic tone used in social media posts and chat messages. <strong>InVeRsE case</strong> swaps the case of every letter, which is handy for fixing the exact moment you typed a whole paragraph with caps lock on. TextShift computes the alternation letter by letter, so spaces and punctuation do not disturb the rhythm — <code>hello world</code> becomes <code>hElLo WoRlD</code> exactly as the meme demands.</p>
+
+    <h3 class="font-type text-2xl mt-8 mb-3">URL slugs: small strings, big SEO impact</h3>
+    <p class="mb-4 leading-8">A URL slug is the readable tail of a web address, like the <code>complete-guide-to-text-case</code> in <code>example.com/blog/complete-guide-to-text-case</code>. Search engines and humans both prefer slugs that are short, lowercase, hyphen-separated and free of special characters. Crafting them by hand is tedious: you must lowercase the title, replace spaces and punctuation with hyphens, strip accents so that <code>Café</code> becomes <code>cafe</code>, collapse repeated hyphens, and trim the result to a sensible length because very long URLs get truncated in search results and social shares. TextShift's slug generator does all of this automatically, including transliterating accented characters from French, German, Spanish and other Latin-based scripts, and it lets you set a maximum length so a rambling headline still produces a tidy slug. If you publish articles, products or documentation, generating clean slugs is one of the cheapest SEO wins available, and doing it in one click beats doing it by hand every time.</p>
+
+    <h3 class="font-type text-2xl mt-8 mb-3">Cleaning text: whitespace and emojis</h3>
+    <p class="mb-4 leading-8">Text copied from PDFs, spreadsheets, chat apps and web pages rarely arrives clean. It carries double spaces, stray tabs, blank lines and trailing whitespace that break formatting, inflate word counts and confuse case conversion. The strip-extra-whitespace option collapses every run of spaces, tabs and newlines into a single space and trims the ends, which is the single most useful cleanup for pasted content. Emoji removal solves a different problem: emojis are wonderful in messages but they do not belong in variable names, URL slugs, database fields or formal documents. A single 😀 in a JSON key or a filename can cause encoding bugs, broken links or failed validations. TextShift removes every emoji character in one pass while leaving all other Unicode text — accented letters, CJK characters, Arabic script — completely untouched, because case operations on non-Latin scripts should pass through gracefully rather than being mangled.</p>
+
+    <h3 class="font-type text-2xl mt-8 mb-3">Smart word splitting: the hidden engine</h3>
+    <p class="mb-4 leading-8">The difference between a mediocre converter and a great one is how it finds word boundaries. A naive tool only splits on spaces, so feeding it <code>helloWorld</code> produces garbage. TextShift's splitter understands the anatomy of identifiers: it separates camelCase humps, so <code>helloWorld</code> becomes hello and World; it splits PascalCase the same way; it breaks apart acronyms correctly, turning <code>JSONParserFactory</code> into JSON, Parser and Factory instead of the mangled J-S-O-N-Parser you get from simpler tools; and it treats underscores, hyphens, dots, slashes and whitespace as separators. Numbers stay glued to their words, so <code>version2Update</code> becomes <code>version2_update</code> rather than <code>version_2_update</code>. This matters because real-world input is messy — you will paste a CSS class, a Java constant and a sentence fragment in the same session — and the converter should handle all of them without you thinking about it. An input-case detector watches what you type and tells you which convention it recognized, which is surprisingly useful when you inherit unfamiliar code and want to confirm its style at a glance.</p>
+
+    <h3 class="font-type text-2xl mt-8 mb-3">Practical workflows that save real time</h3>
+    <p class="mb-4 leading-8">Here is how developers actually use a case converter through a working day. You are wiring a frontend form to a Python API: the JSON arrives with <code>firstName</code> but the database column is <code>first_name</code>, so you convert the whole list of keys to snake_case in seconds. You are writing CSS for a component named <code>UserProfileCard</code> and need the class <code>user-profile-card</code> — one paste, one copy. Your environment file needs <code>DATABASE_URL</code> derived from the phrase "database url" — CONSTANT_CASE does it. A blog post titled "10 Tips for Better Sleep!" needs the slug <code>10-tips-for-better-sleep</code> — done, accents stripped and length capped. A designer sends copy in ALL CAPS and the style guide demands sentence case — fixed without retyping. A social post needs that mocking alternating-case energy — typed once, never manually alternated. Because TextShift shows every format simultaneously with its own copy button, each of these is a two-second operation: paste, glance, copy. The copy-all button even dumps every format with labels into one clipboard payload, which is perfect for documentation or for generating a naming-convention reference for your team.</p>
+
+    <h3 class="font-type text-2xl mt-8 mb-3">Privacy: your text never leaves the browser</h3>
+    <p class="mb-4 leading-8">Case conversion is pure string manipulation — there is no reason for your text to travel to a server, be logged, or be seen by anyone. TextShift performs every conversion locally in your browser with JavaScript; nothing is uploaded, no account is required, and there is no usage tracking on the content you convert. That makes it safe for proprietary code, unreleased product names, private messages and anything else you would not paste into a random website. Your last input is remembered only in your own browser's local storage so the paper is still loaded when you return, and clearing it is one click away. Free, unlimited, private and instant is not a marketing slogan here — it is simply how a text utility should work, and it is the standard every tool on this page is held to.</p>
+  </article>
+
+  <!-- FAQ -->
+  <div class="mt-12">
+    <h2 class="font-type text-3xl mb-6">Frequently asked questions</h2>
+    <div class="space-y-4">
+      <details class="case-card p-4">
+        <summary class="font-bold cursor-pointer text-lg">What does a case converter do?</summary>
+        <p class="mt-2 leading-7">A case converter rewrites your text in a different capitalization style. TextShift supports fifteen formats including UPPERCASE, lowercase, Title Case, Sentence case, camelCase, PascalCase, snake_case, kebab-case, CONSTANT_CASE, dot.case, Train-Case, alternating case, inverse case, URL slugs and cleaned text — all generated live as you type.</p>
+      </details>
+      <details class="case-card p-4">
+        <summary class="font-bold cursor-pointer text-lg">When should I use camelCase vs snake_case?</summary>
+        <p class="mt-2 leading-7">Use camelCase for variables and functions in JavaScript, Java and Go, and snake_case for Python, Ruby, PHP and database columns. Use kebab-case for CSS classes and URLs, PascalCase for classes and components, and CONSTANT_CASE for constants and environment variables. Matching your language's convention keeps linters happy and code readable.</p>
+      </details>
+      <details class="case-card p-4">
+        <summary class="font-bold cursor-pointer text-lg">What is a URL slug and how is it generated?</summary>
+        <p class="mt-2 leading-7">A URL slug is the readable part of a web address, like "my-great-article". TextShift builds slugs by lowercasing your text, transliterating accented characters (café becomes cafe), replacing spaces and symbols with hyphens, collapsing duplicates and trimming to your chosen maximum length.</p>
+      </details>
+      <details class="case-card p-4">
+        <summary class="font-bold cursor-pointer text-lg">Does TextShift store or upload my text?</summary>
+        <p class="mt-2 leading-7">No. Every conversion happens locally in your browser with JavaScript. Nothing is sent to a server, no account is needed, and your input is only remembered in your own browser's local storage so it is there when you come back.</p>
+      </details>
+      <details class="case-card p-4">
+        <summary class="font-bold cursor-pointer text-lg">How does the alternating case (aLtErNaTiNg) mode work?</summary>
+        <p class="mt-2 leading-7">It walks through the letters of your text and alternates lowercase, UPPERCASE, lowercase, UPPERCASE. Spaces, numbers and punctuation are preserved but do not disturb the alternation rhythm, so "hello world" becomes "hElLo WoRlD" — the classic meme style.</p>
+      </details>
+      <details class="case-card p-4">
+        <summary class="font-bold cursor-pointer text-lg">Can it convert identifiers like JSONParserFactory correctly?</summary>
+        <p class="mt-2 leading-7">Yes. TextShift's word splitter understands camelCase humps, PascalCase boundaries and acronyms, so JSONParserFactory is split into JSON, Parser and Factory. That means it converts cleanly to json_parser_factory, jsonParserFactory, json-parser-factory and every other format without mangling the acronym.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "What does a case converter do?", "acceptedAnswer": { "@type": "Answer", "text": "A case converter rewrites your text in a different capitalization style. TextShift supports fifteen formats including UPPERCASE, lowercase, Title Case, Sentence case, camelCase, PascalCase, snake_case, kebab-case, CONSTANT_CASE, dot.case, Train-Case, alternating case, inverse case, URL slugs and cleaned text, all generated live as you type." } },
+    { "@type": "Question", "name": "When should I use camelCase vs snake_case?", "acceptedAnswer": { "@type": "Answer", "text": "Use camelCase for variables and functions in JavaScript, Java and Go, and snake_case for Python, Ruby, PHP and database columns. Use kebab-case for CSS classes and URLs, PascalCase for classes and components, and CONSTANT_CASE for constants and environment variables." } },
+    { "@type": "Question", "name": "What is a URL slug and how is it generated?", "acceptedAnswer": { "@type": "Answer", "text": "A URL slug is the readable part of a web address, like my-great-article. TextShift builds slugs by lowercasing text, transliterating accented characters, replacing spaces and symbols with hyphens, collapsing duplicates and trimming to a chosen maximum length." } },
+    { "@type": "Question", "name": "Does TextShift store or upload my text?", "acceptedAnswer": { "@type": "Answer", "text": "No. Every conversion happens locally in your browser with JavaScript. Nothing is sent to a server and no account is needed; input is only remembered in your own browser's local storage." } },
+    { "@type": "Question", "name": "How does the alternating case (aLtErNaTiNg) mode work?", "acceptedAnswer": { "@type": "Answer", "text": "It alternates lowercase and uppercase letter by letter while preserving spaces and punctuation, so hello world becomes hElLo WoRlD." } },
+    { "@type": "Question", "name": "Can it convert identifiers like JSONParserFactory correctly?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. TextShift's word splitter understands camelCase humps and acronyms, splitting JSONParserFactory into JSON, Parser and Factory for clean conversion to every format." } }
+  ]
+}
+</script>
+
+<footer class="bg-[#141414] text-[#F5F0E6] mt-4">
+  <div class="mx-auto max-w-6xl px-4 sm:px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+    <p class="font-type text-xl tracking-widest">TEXTSHIFT</p>
+    <p class="text-sm text-center">Free forever &middot; Your text never leaves your browser</p>
+    <nav class="flex gap-6 text-sm">
+      <a href="#top" class="hover:underline underline-offset-4">Home</a>
+      <a href="https://fixoraa.tech" class="hover:underline underline-offset-4">More Tools</a>
+    </nav>
+  </div>
+</footer>
+
+<div id="toast" role="status" aria-live="polite" class="fixed bottom-6 left-1/2 -translate-x-1/2 translate-y-4 opacity-0 bg-[#141414] text-[#F5F0E6] font-bold px-6 py-3 rounded-full shadow-xl pointer-events-none z-50">Copied!</div>
+<script>
+'use strict';
+/* ---------- pure logic (tested in tool-factory/tests/textshift.test.js) ---------- */
+function toWords(str) {
+  if (!str) return [];
+  var s = String(str)
+    .replace(/([a-z0-9])([A-Z])/g, '$1 $2')
+    .replace(/([A-Z]+)([A-Z][a-z])/g, '$1 $2');
+  return s.split(/[_\-\.\/\s]+/).filter(Boolean);
+}
+function lowerW(w) { return w.toLowerCase(); }
+function capW(w) { return w ? w.charAt(0).toUpperCase() + w.slice(1).toLowerCase() : w; }
+function toUpper(s) { return String(s).toUpperCase(); }
+function toLower(s) { return String(s).toLowerCase(); }
+function toTitle(s) { return toWords(s).map(capW).join(' '); }
+function toSentence(s) { return String(s).toLowerCase().replace(/(^\s*[a-z])|([.!?]\s*[a-z])/g, function(m){ return m.toUpperCase(); }); }
+function toCamel(s) { var w = toWords(s); return w.map(function(x,i){ return i === 0 ? lowerW(x) : capW(x); }).join(''); }
+function toPascal(s) { return toWords(s).map(capW).join(''); }
+function toSnake(s) { return toWords(s).map(lowerW).join('_'); }
+function toKebab(s) { return toWords(s).map(lowerW).join('-'); }
+function toConstant(s) { return toWords(s).map(function(w){ return w.toUpperCase(); }).join('_'); }
+function toDot(s) { return toWords(s).map(lowerW).join('.'); }
+function toTrain(s) { return toWords(s).map(capW).join('-'); }
+function toAlternating(s) {
+  var i = 0;
+  return String(s).replace(/\p{L}/gu, function(ch){ var out = i % 2 === 0 ? ch.toLowerCase() : ch.toUpperCase(); i++; return out; });
+}
+function toInverse(s) {
+  return String(s).replace(/./gsu, function(ch){
+    var lo = ch.toLowerCase(), up = ch.toUpperCase();
+    if (lo === up) return ch;
+    return ch === lo ? up : lo;
+  });
+}
+function slugify(s, maxLen) {
+  if (maxLen == null) maxLen = 60;
+  var t = String(s).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+  t = t.replace(/[^a-z0-9]+/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
+  if (maxLen > 0) t = t.slice(0, maxLen).replace(/-+$/g, '');
+  return t;
+}
+function stripEmojis(s) { return String(s).replace(/\p{Extended_Pictographic}/gu, ''); }
+function collapseWhitespace(s) { return String(s).replace(/\s+/g, ' ').trim(); }
+function countWords(s) { var t = String(s).trim(); return t ? t.split(/\s+/).length : 0; }
+function countChars(s) { return Array.from(String(s)).length; }
+function countSentences(s) { return String(s).split(/[.!?]+/).map(function(x){ return x.trim(); }).filter(Boolean).length; }
+function detectCase(s) {
+  var t = String(s).trim();
+  if (!t) return '—';
+  if (/^[A-Z][a-zA-Z0-9]*([A-Z][a-zA-Z0-9]*)+$/.test(t)) return 'PascalCase';
+  if (/^[a-z][a-zA-Z0-9]*([A-Z][a-zA-Z0-9]*)+$/.test(t)) return 'camelCase';
+  if (/^[A-Z0-9]+(_[A-Z0-9]+)+$/.test(t)) return 'CONSTANT_CASE';
+  if (/^[a-z0-9]+(_[a-z0-9]+)+$/.test(t)) return 'snake_case';
+  if (/^[a-z0-9]+(-[a-z0-9]+)+$/.test(t)) return 'kebab-case';
+  if (/^[A-Z][a-z0-9]*(\s+[A-Z][a-z0-9]*)+$/.test(t)) return 'Title Case';
+  if (t === t.toUpperCase() && /[A-Z]/.test(t)) return 'UPPERCASE';
+  if (t === t.toLowerCase() && /[a-z]/.test(t)) return 'lowercase';
+  return 'Mixed';
+}
+
+/* ---------- app ---------- */
+var CASES = [
+  { id: 'upper',       label: 'UPPERCASE',      fn: toUpper },
+  { id: 'lower',       label: 'lowercase',      fn: toLower },
+  { id: 'title',       label: 'Title Case',     fn: toTitle },
+  { id: 'sentence',    label: 'Sentence case',  fn: toSentence },
+  { id: 'camel',       label: 'camelCase',      fn: toCamel },
+  { id: 'pascal',      label: 'PascalCase',     fn: toPascal },
+  { id: 'snake',       label: 'snake_case',     fn: toSnake },
+  { id: 'kebab',       label: 'kebab-case',     fn: toKebab },
+  { id: 'constant',    label: 'CONSTANT_CASE',  fn: toConstant },
+  { id: 'dot',         label: 'dot.case',       fn: toDot },
+  { id: 'train',       label: 'Train-Case',     fn: toTrain },
+  { id: 'alternating', label: 'aLtErNaTiNg',    fn: toAlternating },
+  { id: 'inverse',     label: 'InVeRsE',        fn: toInverse },
+  { id: 'slug',        label: 'URL slug',       fn: function(s){ return slugify(s, getSlugLen()); } },
+  { id: 'clean',       label: 'Clean text',     fn: function(s){ return s; } }
+];
+
+var inputEl = document.getElementById('inputText');
+var gridEl = document.getElementById('caseGrid');
+var detectedEl = document.getElementById('detectedCase');
+var statWords = document.getElementById('statWords');
+var statChars = document.getElementById('statChars');
+var statSentences = document.getElementById('statSentences');
+var keyWs = document.getElementById('keyWhitespace');
+var keyEm = document.getElementById('keyEmoji');
+var slugLenEl = document.getElementById('slugLen');
+var toast = document.getElementById('toast');
+var toastTimer = null;
+
+function getSlugLen() {
+  var n = parseInt(slugLenEl.value, 10);
+  return isNaN(n) ? 60 : Math.max(0, Math.min(200, n));
+}
+function toggleKey(btn) {
+  var on = btn.getAttribute('aria-pressed') === 'true';
+  btn.setAttribute('aria-pressed', String(!on));
+  render();
+}
+keyWs.addEventListener('click', function(){ toggleKey(keyWs); });
+keyEm.addEventListener('click', function(){ toggleKey(keyEm); });
+slugLenEl.addEventListener('input', render);
+
+function cleanInput(raw) {
+  var s = String(raw);
+  if (keyEm.getAttribute('aria-pressed') === 'true') s = stripEmojis(s);
+  if (keyWs.getAttribute('aria-pressed') === 'true') s = collapseWhitespace(s);
+  return s;
+}
+
+function currentOutputs() {
+  var cleaned = cleanInput(inputEl.value);
+  return CASES.map(function(c){
+    return { id: c.id, label: c.label, value: c.fn(cleaned) };
+  });
+}
+
+function render() {
+  var cleaned = cleanInput(inputEl.value);
+  detectedEl.textContent = detectCase(inputEl.value);
+  statWords.textContent = countWords(cleaned);
+  statChars.textContent = countChars(cleaned);
+  statSentences.textContent = countSentences(cleaned);
+  var frag = document.createDocumentFragment();
+  CASES.forEach(function(c){
+    var val = c.fn(cleaned);
+    var card = document.createElement('div');
+    card.className = 'case-card p-4 flex flex-col gap-2';
+    var head = document.createElement('div');
+    head.className = 'flex items-center justify-between gap-2';
+    var lab = document.createElement('span');
+    lab.className = 'text-xs font-bold uppercase tracking-[0.15em] bg-[#141414] text-[#F5F0E6] px-2 py-1';
+    lab.textContent = c.label;
+    var copy = document.createElement('button');
+    copy.className = 'tkey px-4 py-1 text-xs font-bold';
+    copy.textContent = 'Copy';
+    copy.setAttribute('aria-label', 'Copy ' + c.label);
+    copy.addEventListener('click', function(){ doCopy(val, c.label); });
+    head.appendChild(lab); head.appendChild(copy);
+    var out = document.createElement('p');
+    out.className = 'text-base break-words whitespace-pre-wrap min-h-[1.75rem]';
+    out.textContent = val === '' ? '—' : val;
+    if (val === '') out.classList.add('text-[#8a8474]');
+    card.appendChild(head); card.appendChild(out);
+    frag.appendChild(card);
+  });
+  gridEl.innerHTML = '';
+  gridEl.appendChild(frag);
+  saveState();
+}
+
+function showToast(msg) {
+  toast.textContent = msg;
+  toast.classList.remove('opacity-0', 'translate-y-4');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(function(){ toast.classList.add('opacity-0', 'translate-y-4'); }, 1600);
+}
+function doCopy(text, label) {
+  if (!text) { showToast('Nothing to copy'); return; }
+  function done(){ showToast('Copied ' + label + '!'); }
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(done, function(){ fallbackCopy(text); done(); });
+  } else { fallbackCopy(text); done(); }
+}
+function fallbackCopy(text) {
+  var ta = document.createElement('textarea');
+  ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+  document.body.appendChild(ta); ta.select();
+  try { document.execCommand('copy'); } catch (e) {}
+  document.body.removeChild(ta);
+}
+
+document.getElementById('btnCopyAll').addEventListener('click', function(){
+  var all = currentOutputs().map(function(o){ return o.label + ':\n' + (o.value || '—'); }).join('\n\n');
+  doCopy(all, 'all formats');
+});
+document.getElementById('btnDownload').addEventListener('click', function(){
+  var all = currentOutputs().map(function(o){ return o.label + ':\n' + (o.value || '—'); }).join('\n\n');
+  if (!all.trim()) { showToast('Nothing to download'); return; }
+  var blob = new Blob([all], { type: 'text/plain;charset=utf-8' });
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'textshift-case-conversions.txt';
+  document.body.appendChild(a); a.click();
+  setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 500);
+  showToast('Downloaded!');
+});
+document.getElementById('btnClear').addEventListener('click', function(){
+  inputEl.value = '';
+  render();
+  inputEl.focus();
+  showToast('Paper cleared');
+});
+
+function saveState() {
+  try {
+    localStorage.setItem('textshift-v1', JSON.stringify({
+      input: inputEl.value,
+      ws: keyWs.getAttribute('aria-pressed'),
+      em: keyEm.getAttribute('aria-pressed'),
+      slugLen: slugLenEl.value
+    }));
+  } catch (e) {}
+}
+function restoreState() {
+  try {
+    var s = JSON.parse(localStorage.getItem('textshift-v1') || 'null');
+    if (!s) return;
+    inputEl.value = s.input || '';
+    if (s.ws) keyWs.setAttribute('aria-pressed', s.ws);
+    if (s.em) keyEm.setAttribute('aria-pressed', s.em);
+    if (s.slugLen != null) slugLenEl.value = s.slugLen;
+  } catch (e) {}
+}
+
+inputEl.addEventListener('input', render);
+restoreState();
+render();
+</script>
+</body>
+</html>
